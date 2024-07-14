@@ -1,5 +1,5 @@
-const getWeather = async (longitude, latitude) => {
-  const url = `https://visual-crossing-weather.p.rapidapi.com/forecast?contentType=json&unitGroup=us&aggregateHours=24&location=${latitude},${longitude}&shortColumnNames=false`;
+const getWeather = async (location) => {
+  const url = `https://visual-crossing-weather.p.rapidapi.com/forecast?contentType=json&unitGroup=metric&aggregateHours=24&location=${location}&shortColumnNames=false`;
   const options = {
     method: "GET",
     headers: {
@@ -11,13 +11,12 @@ const getWeather = async (longitude, latitude) => {
     const response = await fetch(url, options);
 
     if (!response.ok) {
-      const errorData = await response.json();
-      return errorData;
+      return response;
     }
 
     const data = await response.json();
-    console.log("here ", data);
-    return data;
+
+    return Object.values(data.locations)[0];
   } catch (error) {
     return { message: "Something went wrong!" };
   }
