@@ -97,17 +97,29 @@ const MiniCard = ({ iconString, time, temp }) => {
           flexDirection: "column",
         }}
       >
-        <Typography color={"white"} fontSize={"large"}>
+        <Typography
+          color={"white"}
+          fontSize={"large"}
+          fontWeight={"bold"}
+          sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+        >
           {
             new Date(time)
               .toLocaleTimeString("en", { weekday: "long" })
               .split(" ")[0]
           }
         </Typography>
-        <Divider color="white" sx={{ height: "1px", width: "100%" }} />
+        <Divider
+          color="white"
+          sx={{ height: "1px", width: "100%", marginBottom: 1 }}
+        />
         <Icon />
         <Typography
-          sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
+          sx={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+          }}
           color="white"
         >
           {temp} &deg;C

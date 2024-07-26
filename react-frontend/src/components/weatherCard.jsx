@@ -107,7 +107,11 @@ const WeatherCard = () => {
         >
           <WeatherIcon />
           <Typography
-            sx={{ fontSize: "2.5rem", fontWeight: "bold" }}
+            sx={{
+              fontSize: "2.5rem",
+              fontWeight: "bold",
+              textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+            }}
             color="white"
           >
             {weather[0]?.temp} &deg;C
@@ -122,6 +126,7 @@ const WeatherCard = () => {
           align={"center"}
           mt={1}
           mb={3}
+          sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
         >
           {location}
         </Typography>
@@ -133,10 +138,18 @@ const WeatherCard = () => {
             marginBottom: "2rem",
           }}
         >
-          <Typography variant="body2" color="white">
+          <Typography
+            variant="body2"
+            color="white"
+            sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+          >
             {new Date().toDateString()}
           </Typography>
-          <Typography variant="body2" color="white">
+          <Typography
+            variant="body2"
+            color="white"
+            sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+          >
             {time}
           </Typography>
         </div>
@@ -160,10 +173,18 @@ const WeatherCard = () => {
               width: "44%",
             }}
           >
-            <Typography color="white" fontSize={"small"}>
+            <Typography
+              color="white"
+              fontSize={"small"}
+              sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+            >
               Wind Speed
             </Typography>
-            <Typography color="white" fontSize={"small"}>
+            <Typography
+              color="white"
+              fontSize={"small"}
+              sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+            >
               {weather[0]?.wspd} km/h
             </Typography>
           </div>
@@ -179,10 +200,18 @@ const WeatherCard = () => {
               flexDirection: "column",
             }}
           >
-            <Typography color="white" fontSize={"small"}>
+            <Typography
+              color="white"
+              fontSize={"small"}
+              sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+            >
               Humidity
             </Typography>
-            <Typography color="white" fontSize={"small"}>
+            <Typography
+              color="white"
+              fontSize={"small"}
+              sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+            >
               {weather[0]?.humidity} gm/m&#179;
             </Typography>
           </div>
@@ -195,10 +224,18 @@ const WeatherCard = () => {
             marginBottom: "1rem",
           }}
         >
-          <Typography color="white" fontSize={"small"}>
+          <Typography
+            color="white"
+            fontSize={"small"}
+            sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+          >
             Heat Index
           </Typography>
-          <Typography color="white" fontSize={"small"}>
+          <Typography
+            color="white"
+            fontSize={"small"}
+            sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
+          >
             {weather[0]?.heatindex ? weather[0].heatindex : "N/A"}
           </Typography>
         </div>
@@ -208,6 +245,7 @@ const WeatherCard = () => {
           align={"center"}
           fontWeight={"bold"}
           variant="h6"
+          sx={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)" }}
         >
           {weather[0]?.conditions}
         </Typography>
