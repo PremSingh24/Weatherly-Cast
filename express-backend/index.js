@@ -30,8 +30,10 @@ app.get("/", (req, res) => {
 
 ///Routes
 import userRouter from "./routes/auth.routes.js";
+import cityRouter from "./routes/city.routes.js";
 
 app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/city", cityRouter);
 
 app.use("/*", (req, res) => {
   res.status(404).json({ message: "Invalid Route" });
