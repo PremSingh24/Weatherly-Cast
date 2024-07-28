@@ -52,7 +52,6 @@ const LoginPage = () => {
       setOpen(true);
       setLoading(false);
     } else {
-      console.log(response);
       setMessage(response.message);
       setSeverity("success");
       setOpen(true);
