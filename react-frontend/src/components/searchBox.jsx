@@ -2,16 +2,16 @@ import { styled, alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Container, Divider, IconButton, List, ListItem } from "@mui/material";
+import { Container, Divider, List, ListItem } from "@mui/material";
 import React, { useRef, useState } from "react";
 import useDebounceSearch from "../hooks/debounceSearch";
 import getCityNames from "../api/getCityNames";
 import { useEffect } from "react";
 import getWeather from "../api/getWeather";
 import { useWeatherContext } from "../context/weather";
-import { useNavigate } from "react-router-dom";
-import loginStatus from "../utils/loginStatus";
+
 import StarButton from "./starButton";
+import { useToastContext } from "../context/toast";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,7 +60,8 @@ const SearchBox = () => {
   const { setLocation, setWeather } = useWeatherContext();
   const listRef = useRef([]);
 
-  const loggedIn = loginStatus();
+  const { setOpen, setSeverity, setMessage } = useToastContext();
+
   useEffect(() => {
     (async () => {
       const result = await getCityNames(debouncedSearch);
@@ -178,8 +179,19 @@ const SearchBox = () => {
                           ${city.country}`
                         );
 
-                        setLocation(`${city.city}, ${city.country}`);
-                        setWeather(weatherResult.values);
+                        if (weatherResult?.status) {
+                          const res = await weatherResult.json();
+                          setSeverity("error");
+                          if (res?.message) {
+                            setMessage(res.message.slice(0, 69));
+                          } else {
+                            setMessage("Can not fetch weather at this moment");
+                          }
+                          setOpen(true);
+                        } else {
+                          setLocation(`${city.city}, ${city.country}`);
+                          setWeather(weatherResult.values);
+                        }
 
                         localStorage.setItem(
                           "location",

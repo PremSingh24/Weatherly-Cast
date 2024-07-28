@@ -69,7 +69,11 @@ const FavouriteCityList = () => {
                     if (weatherResult?.status) {
                       const res = await weatherResult.json();
                       setSeverity("error");
-                      setMessage(res.message.slice(0, 69));
+                      if (res?.message) {
+                        setMessage(res.message.slice(0, 69));
+                      } else {
+                        setMessage("Can not fetch weather at this moment");
+                      }
                       setOpen(true);
                     } else {
                       setLocation(city);
@@ -78,10 +82,7 @@ const FavouriteCityList = () => {
 
                     setOpenList(false);
 
-                    localStorage.setItem(
-                      "location",
-                      `${city.city}, ${city.country}`
-                    );
+                    localStorage.setItem("location", city);
                   }}
                 >
                   <Typography variant="body2" color="#ffffff">
