@@ -26,7 +26,6 @@ const StarButton = ({ city, setSearchInput }) => {
     const response = await removeCityService(city);
 
     if (response?.status) {
-      console.log("here ", response);
       setFavCity([...favCity, city]);
     }
   };
@@ -50,8 +49,12 @@ const StarButton = ({ city, setSearchInput }) => {
       aria-label="open drawer"
       sx={{ paddingTop: 0.5 }}
       onClick={() => {
-        loggedIn ? addCity() : navigate("/login");
-        setSearchInput("");
+        if (loggedIn) {
+          addCity();
+        } else {
+          navigate("/login");
+          setSearchInput("");
+        }
       }}
     >
       <StarBorderIcon />
