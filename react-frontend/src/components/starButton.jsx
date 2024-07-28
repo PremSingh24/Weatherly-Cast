@@ -26,6 +26,7 @@ const StarButton = ({ city, setSearchInput }) => {
     const response = await removeCityService(city);
 
     if (response?.status) {
+      console.log("here ", response);
       setFavCity([...favCity, city]);
     }
   };
