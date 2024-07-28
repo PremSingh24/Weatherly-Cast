@@ -1,40 +1,19 @@
-import { useEffect } from "react";
 import { WeatherCard, MiniCard, WeatherChart } from "../components";
-import getWeather from "../api/getWeather";
 import { useWeatherContext } from "../context/weather";
 import { Box } from "@mui/material";
 
 const WeatherPage = () => {
-  const { setWeather, setLocation, weather } = useWeatherContext();
-  // useEffect(() => {
-  //   (async () => {
-  //     const latitude = localStorage.getItem("longitude")
-  //       ? Number(localStorage.getItem("longitude"))
-  //       : 77.216666666;
-  //     const longitude = localStorage.getItem("latitude")
-  //       ? Number(localStorage.getItem("latitude"))
-  //       : 28.666666666;
-
-  //     const location = localStorage.getItem("location")
-  //       ? localStorage.getItem("location")
-  //       : "Delhi, India";
-  //     const weatherResult = await getWeather(latitude, longitude);
-
-  //     setLocation(location);
-
-  //     setWeather(weatherResult.values);
-  //   })();
-  // }, []);
+  const { weather } = useWeatherContext();
 
   return (
     <>
-      <div
-        style={{
+      <Box
+        sx={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "row",
+          flexDirection: { xs: "column", md: "row" },
           flexWrap: "wrap",
           gap: "4rem",
           paddingTop: "8rem",
@@ -44,11 +23,11 @@ const WeatherPage = () => {
         <WeatherCard />
 
         {weather?.length > 1 ? (
-          <div
-            style={{
-              width: "40%",
+          <Box
+            sx={{
+              width: { xs: "100%", md: "40%" },
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: { xs: "center", md: "flex-end" },
               flexWrap: "wrap",
               gap: "2rem",
             }}
@@ -63,9 +42,9 @@ const WeatherPage = () => {
                 />
               );
             })}
-          </div>
+          </Box>
         ) : null}
-      </div>
+      </Box>
       <Box
         sx={{
           backgroundColor: "rgba(0,0,0,0.7)",
