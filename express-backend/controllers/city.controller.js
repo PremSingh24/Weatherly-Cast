@@ -1,8 +1,8 @@
-import { Users } from "../models/user.model";
+import { Users } from "../models/user.model.js";
 
 export const getFavCityHandler = async (req, res) => {
   try {
-    const user = await Users.findById(req.user);
+    const user = await Users.findById(req.user.userId);
 
     if (user) {
       res.json({ city: user.favCity || [] });
@@ -22,9 +22,9 @@ export const getFavCityHandler = async (req, res) => {
 
 export const addCityToFavouriteHandler = async (req, res) => {
   try {
-    const city = req.params.ProductId;
+    const city = req.body.city;
 
-    const user = await Users.findById(req.user);
+    const user = await Users.findById(req.user.userId);
 
     if (user) {
       await user.updateOne({ $addToSet: { favCity: city } }); //using $addToSet to store only unique values
@@ -44,12 +44,12 @@ export const addCityToFavouriteHandler = async (req, res) => {
 
 export const removeCityFromFavouriteHandler = async (req, res) => {
   try {
-    const city = req.params.ProductId;
+    const city = req.body.city;
 
-    var user = await Users.findById(req.user);
+    var user = await Users.findById(req.user.userId);
 
     if (user) {
-      await user.updateOne({ $pull: { wishlist: city } });
+      await user.updateOne({ $pull: { favCity: city } });
 
       res.status(201).json({ message: "city Removed from favourites" });
     } else {
