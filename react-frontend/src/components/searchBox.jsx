@@ -173,13 +173,13 @@ const SearchBox = () => {
                         ":hover": { backgroundColor: "gray" },
                       }}
                       onClick={async () => {
-                        // const weatherResult = await getWeather(
-                        // `${city.city},
-                        //   ${city.country}`
-                        // );
+                        const weatherResult = await getWeather(
+                          `${city.city},
+                          ${city.country}`
+                        );
 
                         setLocation(`${city.city}, ${city.country}`);
-                        //setWeather(weatherResult.values);
+                        setWeather(weatherResult.values);
 
                         localStorage.setItem(
                           "location",
