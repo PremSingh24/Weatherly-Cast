@@ -1,4 +1,5 @@
 import { Users } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
 export const authenticateUserHandler = async (req, res) => {
   try {
@@ -25,7 +26,6 @@ export const registerUserHandler = async (req, res) => {
 
   try {
     //check if username already exists in DB
-    console.log("username ", req.body);
 
     const usernameTaken = await Users.findOne({
       username: username,
@@ -36,9 +36,10 @@ export const registerUserHandler = async (req, res) => {
     } else {
       const newUser = new Users({ username, password });
       await newUser.save();
-      const token = jwt.sign({ userId: newUser.id }, SecretKey, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { userId: newUser.id },
+        String(process.env.SECRET_KEY)
+      );
       res.status(201).json({ message: "User Created successfully", token });
     }
   } catch (error) {
@@ -60,9 +61,10 @@ export const loginUserHandler = async (req, res) => {
 
     if (user) {
       if (loginUser.password === user.password) {
-        const token = jwt.sign({ userId: user.id }, SecretKey, {
-          expiresIn: "1h",
-        });
+        const token = jwt.sign(
+          { userId: user.id },
+          String(process.env.SECRET_KEY)
+        );
         res.status(200).json({ message: "Login successful", token });
       } else {
         res.status(401).json({ message: "Incorrect Password" });
