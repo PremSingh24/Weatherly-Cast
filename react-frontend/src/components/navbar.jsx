@@ -8,11 +8,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import loginStatus from "../utils/loginStatus";
 import { FavouriteCityList, SearchBox } from ".";
+import { useCityContext } from "../context/city";
 
 const UserIcon = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const loggedIn = loginStatus();
+
+  const { setFavCity } = useCityContext();
 
   const handleClick = (event) => {
     if (loggedIn) {
@@ -32,6 +35,7 @@ const UserIcon = () => {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    setFavCity([]);
     handleClose();
   };
 
