@@ -65,7 +65,9 @@ export const loginUserHandler = async (req, res) => {
           { userId: user.id },
           String(process.env.SECRET_KEY)
         );
-        res.status(200).json({ message: "Login successful", token });
+        res
+          .status(200)
+          .json({ message: "Login successful", token, city: user.city });
       } else {
         res.status(401).json({ message: "Incorrect Password" });
       }
