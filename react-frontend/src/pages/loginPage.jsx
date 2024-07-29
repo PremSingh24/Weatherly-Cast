@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUserService } from "../services/authServices/login.service";
 import { useToastContext } from "../context/toast";
 import { Loader } from "../components";
+import { useCityContext } from "../context/city";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -25,6 +26,8 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { setFavCity } = useCityContext();
 
   const EyeIcon = () => {
     return (
@@ -58,6 +61,7 @@ const LoginPage = () => {
       setLoading(false);
       localStorage.setItem("token", response.token);
       localStorage.setItem("username", username);
+      setFavCity(response.city);
       navigate("/");
     }
   };
