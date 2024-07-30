@@ -5,6 +5,12 @@ import { Chart as ChartJs } from "chart.js/auto";
 const WeatherChart = () => {
   const { weather } = useWeatherContext();
 
+  let maxTemp = Math.max(
+    ...weather.slice(0, 7).map((today) => Math.ceil(today.maxt))
+  );
+
+  maxTemp += (maxTemp % 2) + 2;
+
   const data = {
     labels: weather
       .slice(0, 7)
@@ -38,65 +44,85 @@ const WeatherChart = () => {
       },
     ],
   };
+
+  const chartStyles = {
+    container: {
+      width: "auto",
+      height: "100vh", // Default height for larger screens
+    },
+    containerMobile: {
+      width: "100%",
+      height: "350px", // Increased height for mobile screens
+    },
+  };
   return (
-    <Line
-      data={data}
-      options={{
-        responsive: true,
-        width: "80%",
-        plugins: {
-          legend: {
-            labels: {
-              font: {
-                size: 14,
+    <div
+      style={
+        window.innerWidth < 768
+          ? chartStyles.containerMobile
+          : chartStyles.container
+      }
+    >
+      <Line
+        data={data}
+        options={{
+          maintainAspectRatio: false,
+          responsive: true,
+          width: "80%",
+          plugins: {
+            legend: {
+              labels: {
+                font: {
+                  size: 14,
+                  color: "#ffca28",
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: "Day",
+                font: {
+                  size: 18,
+                },
+              },
+              ticks: {
                 color: "#ffca28",
+                font: {
+                  size: 14,
+                },
+              },
+              grid: {
+                color: "rgba(255,255,255,0.3)",
               },
             },
-          },
-        },
-        scales: {
-          x: {
-            display: true,
-            title: {
+            y: {
+              max: maxTemp,
               display: true,
-              text: "Day",
-              font: {
-                size: 18,
+              title: {
+                display: true,
+                text: "Temp in Celcius",
+                font: {
+                  size: 18,
+                },
               },
-            },
-            ticks: {
-              color: "#ffca28",
-              font: {
-                size: 14,
+              ticks: {
+                color: "#ffca28",
+                font: {
+                  size: 14,
+                },
               },
-            },
-            grid: {
-              color: "rgba(255,255,255,0.3)",
+              grid: {
+                color: "rgba(255,255,255,0.3)",
+              },
             },
           },
-          y: {
-            max: 45,
-            display: true,
-            title: {
-              display: true,
-              text: "Temp in Celcius",
-              font: {
-                size: 18,
-              },
-            },
-            ticks: {
-              color: "#ffca28",
-              font: {
-                size: 14,
-              },
-            },
-            grid: {
-              color: "rgba(255,255,255,0.3)",
-            },
-          },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 };
 
