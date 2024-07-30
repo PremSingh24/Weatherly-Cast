@@ -14,11 +14,11 @@ const WeatherChart = () => {
   const data = {
     labels: weather
       .slice(0, 7)
-      .map(
-        (today) =>
-          new Date(today.datetime)
-            .toLocaleTimeString("en", { weekday: "long" })
-            .split(" ")[0]
+      .map((today) =>
+        new Date(today.datetime)
+          .toLocaleTimeString("en", { weekday: "long" })
+          .split(" ")[0]
+          .slice(0, 3)
       ),
     datasets: [
       {
