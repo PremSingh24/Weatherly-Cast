@@ -24,8 +24,8 @@ const WeatherChart = () => {
       {
         label: "Max Temp",
         data: weather.slice(0, 7).map((today) => today.maxt),
-        backgroundColor: "#ffca28",
-        borderColor: "#ffca28",
+        backgroundColor: "#FFA500",
+        borderColor: "#FFA500",
         borderWidth: 1.5,
         pointBorderWidth: 3,
         pointHoverBorderWidth: 6,
@@ -34,8 +34,8 @@ const WeatherChart = () => {
       {
         label: "Min Temp",
         data: weather.slice(0, 7).map((today) => today.mint),
-        backgroundColor: "rgba(207, 216, 220, 0.5)",
-        borderColor: "rgba(207, 216, 220, 0.5)",
+        backgroundColor: "rgba(135, 206, 235, 0.7)",
+        borderColor: "rgba(135, 206, 235, 0.7)",
         borderWidth: 1.5,
         fill: true,
         pointBorderWidth: 3,
