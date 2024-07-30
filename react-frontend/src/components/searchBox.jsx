@@ -2,7 +2,14 @@ import { styled, alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Container, Divider, List, ListItem } from "@mui/material";
+import {
+  Container,
+  Divider,
+  List,
+  ListItem,
+  Box,
+  keyframes,
+} from "@mui/material";
 import React, { useRef, useState } from "react";
 import useDebounceSearch from "../hooks/debounceSearch";
 import getCityNames from "../api/getCityNames";
@@ -45,13 +52,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
     },
   },
 }));
 
+const blink = keyframes`
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+`;
+
+const Dot = styled(Box)(({ theme }) => ({
+  width: 5,
+  height: 5,
+  borderRadius: "50%",
+  backgroundColor: theme.palette.text.primary,
+  margin: "0 2px",
+  animation: `${blink} 1s infinite`,
+}));
+
+const DottedTransition = styled(Box)({
+  display: "flex",
+  justifyContent: "start",
+  alignItems: "center",
+});
 const SearchBox = () => {
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebounceSearch(searchInput, 300);
@@ -115,8 +141,8 @@ const SearchBox = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "start",
+          justifyContent: "space-between",
+          alignItems: "center",
           position: "relative",
         }}
       >
@@ -131,9 +157,16 @@ const SearchBox = () => {
           onChange={(e) => setSearchInput(e.target.value)}
           onKeyDown={handleKeyDown}
         />
+        {searchInput.length > 0 && !searchedCities.length ? (
+          <DottedTransition>
+            <Dot style={{ animationDelay: "0s" }} />
+            <Dot style={{ animationDelay: "0.2s" }} />
+            <Dot style={{ animationDelay: "0.4s" }} />
+          </DottedTransition>
+        ) : null}
       </div>
       {/* Search Results */}
-      {searchInput.trim() !== "" && searchedCities ? (
+      {searchInput.trim() !== "" && searchedCities.length ? (
         <Container
           component="main"
           sx={{
