@@ -117,7 +117,7 @@ const NavBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="fixed"
+        position="absolute"
         color="transparent"
         sx={{
           zIndex: 20,
