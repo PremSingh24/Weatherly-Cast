@@ -67,7 +67,7 @@ export const loginUserHandler = async (req, res) => {
         );
         res
           .status(200)
-          .json({ message: "Login successful", token, city: user.city });
+          .json({ message: "Login successful", token, city: user.favCity });
       } else {
         res.status(401).json({ message: "Incorrect Password" });
       }
