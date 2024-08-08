@@ -12,7 +12,7 @@ import { useState } from "react";
 import getWeather from "../api/getWeather";
 import { useToastContext } from "../context/toast";
 
-const FavouriteCityList = () => {
+const FavouriteCityList = ({ setLoading }) => {
   const [openList, setOpenList] = useState(false);
   const { favCity } = useCityContext();
 
@@ -64,7 +64,9 @@ const FavouriteCityList = () => {
                     ":hover": { backgroundColor: "gray" },
                   }}
                   onClick={async () => {
+                    setLoading(true);
                     const weatherResult = await getWeather(city);
+                    setLoading(false);
 
                     if (weatherResult?.status) {
                       const res = await weatherResult.json();

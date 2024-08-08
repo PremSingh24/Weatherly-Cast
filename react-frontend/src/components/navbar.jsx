@@ -113,7 +113,7 @@ const UserIcon = () => {
     </>
   );
 };
-const NavBar = () => {
+const NavBar = ({ setLoading }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -133,9 +133,9 @@ const NavBar = () => {
             flexDirection: "row",
           }}
         >
-          <FavouriteCityList />
+          <FavouriteCityList setLoading={setLoading} />
 
-          <SearchBox />
+          <SearchBox setLoading={setLoading} />
           <UserIcon />
         </Toolbar>
       </AppBar>

@@ -1,11 +1,11 @@
-import { WeatherCard, MiniCard, WeatherChart } from "../components";
+import { WeatherCard, MiniCard, WeatherChart, Loader } from "../components";
 import { useWeatherContext } from "../context/weather";
 import { Box } from "@mui/material";
 
-const WeatherPage = () => {
+const WeatherPage = ({ loading }) => {
   const { weather } = useWeatherContext();
 
-  return (
+  return !loading ? (
     <>
       <Box
         sx={{
@@ -55,6 +55,17 @@ const WeatherPage = () => {
         <WeatherChart />
       </Box>
     </>
+  ) : (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Loader />
+    </div>
   );
 };
 

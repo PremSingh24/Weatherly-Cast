@@ -78,7 +78,7 @@ const DottedTransition = styled(Box)({
   justifyContent: "start",
   alignItems: "center",
 });
-const SearchBox = () => {
+const SearchBox = ({ setLoading }) => {
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebounceSearch(searchInput, 300);
   const [searchedCities, setSearchedCities] = useState([]);
@@ -126,14 +126,25 @@ const SearchBox = () => {
   };
 
   const handleListItemClick = async (city) => {
-    const weatherResult = await getWeather(`${city.city},${city.country}`);
-
-    setLocation(`${city.city}, ${city.country}`);
-    setWeather(weatherResult.values);
-
-    localStorage.setItem("location", `${city.city}, ${city.country}`);
-
     setSearchInput("");
+    setLoading(true);
+    const weatherResult = await getWeather(`${city.city},${city.country}`);
+    setLoading(false);
+
+    if (weatherResult?.status) {
+      const res = await weatherResult.json();
+      setSeverity("error");
+      if (res?.message) {
+        setMessage(res.message.slice(0, 69));
+      } else {
+        setMessage("Can not fetch weather at this moment");
+      }
+      setOpen(true);
+    } else {
+      setLocation(`${city.city}, ${city.country}`);
+      setWeather(weatherResult.values);
+      localStorage.setItem("location", `${city.city}, ${city.country}`);
+    }
   };
 
   return (
@@ -207,10 +218,13 @@ const SearchBox = () => {
                         ":hover": { backgroundColor: "gray" },
                       }}
                       onClick={async () => {
+                        setSearchInput("");
+                        setLoading(true);
                         const weatherResult = await getWeather(
                           `${city.city},
                           ${city.country}`
                         );
+                        setLoading(false);
 
                         if (weatherResult?.status) {
                           const res = await weatherResult.json();
@@ -224,14 +238,11 @@ const SearchBox = () => {
                         } else {
                           setLocation(`${city.city}, ${city.country}`);
                           setWeather(weatherResult.values);
+                          localStorage.setItem(
+                            "location",
+                            `${city.city}, ${city.country}`
+                          );
                         }
-
-                        localStorage.setItem(
-                          "location",
-                          `${city.city}, ${city.country}`
-                        );
-
-                        setSearchInput("");
                       }}
                     >
                       <Typography variant="body2" color={"black"}>
