@@ -8,12 +8,12 @@
     <img src="./react-frontend/public/logo.webp" alt="Logo" width="150" height="150">
   </a>
   <br/>
-  <h3 style="font-weight: 600" align="center">Weather App</h3>
+  <h3 style="font-weight: 600" align="center">Weatherly Cast</h3>
 
   <p align="center">
     Check Weather of Anytime Anywhere
     <br />
-    <a href="https://weather-app-frontend-rosy.vercel.app/">Live Website</a>
+    <a href="https://weatherly-cast.vercel.app">Live Website</a>
     ·
     <a href=https://github.com/PremSingh24/Weather-App/issues/new">Report Bug</a>
     ·
@@ -87,7 +87,7 @@ Backend
 
 ## How To Use
 
-1.  Visit [Weather App]("https://weather-app-frontend-rosy.vercel.app/) and search for any city you like in the search box.
+1.  Visit [Weather App](https://weatherly-cast.vercel.app) and search for any city you like in the search box.
 
 2.  all city list will appear according to your input, then select any city to view its weather.
 
